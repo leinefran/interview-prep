@@ -2,26 +2,26 @@
 
 /**
  * binary_tree_is_full - a function that checks if a BT is full.
- * @array: a pointer to the 1st element;
- * @size: the number of elements in the array;
- * @value: the value to search for
- * Return: the first index where value is located.
+ * @tree: is a pointer to the root node of the tree.
+ * Return: 0 if tree is NULL. Otherwise, return 1.
  */
 int binary_tree_is_full(const binary_tree_t *tree)
 {
-	int left = 0, right = 0;
 
+	/* if a binary tree node is NULL, then it's a full BT */
 	if (tree == NULL)
 		return (0);
 
-	if (tree->left)
-		left = 1 + binary_tree_is_full(tree->left);
-
-	if (tree->right)
-		right = 1 + binary_tree_is_full(tree->right);
-
-	if (left - right == 0)
+	/* if a BT node has empty left and right sub-tree == full BT */
+	if (tree->left == NULL && tree->right == NULL)
 		return (1);
 
+	/* if both left & right are not NULL, */
+	/* recursively check if left & right subtree are full: */
+	if (tree->left && tree->right)
+		return (binary_tree_is_full(tree->left) &&
+			binary_tree_is_full(tree->right));
+
+	/* Otherwise, return 0 */
 	return (0);
 }
