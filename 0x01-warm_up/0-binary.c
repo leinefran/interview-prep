@@ -11,36 +11,41 @@
 
 int binary_search(int *array, size_t size, int value)
 {
-	int left = 0;
-	int right = size - 1;
+  /* low and high keep track of which part of the list  will be searched */
+	int low = 0;
+	int high = size - 1;
 	int index = 0;
 	int middle = 0;
 
-	if (!array)
+	if (!array || !value)
 		return (-1);
 
-	while (left <= right)
+	/* While you haven't narrowed it down to one element */
+	while (low <= high)
 	{
 		printf("Searching in array: ");
 
-		for (index = left; index <= right - 1; index++)
+		for (index = low; index <= high - 1; index++)
 		{
 			printf("%i, ", array[index]);
 		}
 		printf("%i\n", array[index]);
 
-		middle = (left + right) / 2;
+		middle = (low + high) / 2; /* check the mid element */
 
+		/* the guess was too low */
 		if (array[middle] < value)
 		{
-			left = middle + 1;
+			low = middle + 1;
 		}
+		/* the guess was too high */
 		else if (array[middle] > value)
 		{
-			right = middle - 1;
+			high = middle - 1;
 		}
+		/* found the value */
 		else
-			return (middle);
+			return (middle); /* return found element */
 	}
 	return (-1);
 }
